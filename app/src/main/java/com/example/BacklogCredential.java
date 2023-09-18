@@ -2,10 +2,16 @@ package com.example;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
 
 public class BacklogCredential {
     @JsonProperty("api_key")
@@ -14,22 +20,39 @@ public class BacklogCredential {
     @JsonProperty("space_id")
     private String spaceId;
 
-    // public String organiztion_name;
+    @JsonProperty("project_key")
+    private String projectKey;
 
     BacklogCredential() {}
 
-    BacklogCredential(String spaceId, String apiKey) {
+    BacklogCredential(String filePath) throws NoSuchFileException, IOException, StreamReadException, DatabindException {
+        if (Files.notExists(Paths.get(filePath))) {
+            throw new NoSuchFileException(filePath);
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        BacklogCredential credential = objectMapper.readValue(new File(filePath), BacklogCredential.class);
+        this.apiKey = credential.getApiKey();
+        this.spaceId = credential.getSpaceId();
+    }
+
+    BacklogCredential(String spaceId, String apiKey, String projectKey) {
         this.spaceId = spaceId;
         this.apiKey = apiKey;
+        this.projectKey = projectKey;
     }
 
     // getter
     public String getApiKey() {
-        return apiKey;
+        return this.apiKey;
     }
 
     public String getSpaceId() {
-        return spaceId;
+        return this.spaceId;
+    }
+
+    public String getProjectKey() {
+        return this.projectKey;
     }
 
     // setter
@@ -43,14 +66,26 @@ public class BacklogCredential {
 
     /**
      * 認証情報をファイルにjson形式で書き込み
+     * @param filePath jsonファイルへのパス
      */
-    public void toJson(String file_path) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.writeValue(new File(file_path), this);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void toJson(String filePath) throws IOException, StreamWriteException, DatabindException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.writeValue(new File(filePath), this);
+    }
+
+    /**
+     * 認証情報をjsonファイルから読み込み
+     * @param filePath jsonファイルへのパス
+     */
+    public void loadJson(String filePath) throws IOException, StreamWriteException, DatabindException {
+        if (Files.notExists(Paths.get(filePath))) {
+            throw new NoSuchFileException(filePath);
         }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        BacklogCredential credential = objectMapper.readValue(new File(filePath), BacklogCredential.class);
+        this.apiKey = credential.getApiKey();
+        this.spaceId = credential.getSpaceId(); 
     }
 }

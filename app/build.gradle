@@ -34,9 +34,11 @@ dependencies {
     // https://mvnrepository.com/artifact/com.beust/jcommander
     implementation group: 'com.beust', name: 'jcommander', version: '1.82'
 
+    // https://mvnrepository.com/artifact/com.nulab-inc/backlog4j
     // https://github.com/nulab/backlog4j
     // Backlog api client
-    implementation 'com.nulab-inc:backlog4j:2.5.3'
+    implementation group: 'com.nulab-inc', name: 'backlog4j', version: '2.5.3'
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

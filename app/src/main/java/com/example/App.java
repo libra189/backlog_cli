@@ -75,11 +75,13 @@ public class App {
         switch (command) {
             case "init":
                 System.out.println("subcommand: init");
-                Init cmd = new Init();
-                cmd.exec();
+                Init initCmd = new Init();
+                initCmd.exec();
                 break;
             case "list":
                 System.out.println("subcommand: list");
+                IssueList issueListCmd = new IssueList();
+                issueListCmd.exec();
                 break;
             case "view":
                 System.out.println("subcommand: view");
