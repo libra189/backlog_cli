@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BacklogCredential {
@@ -46,6 +47,7 @@ public class BacklogCredential {
     public void toJson(String file_path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
             mapper.writeValue(new File(file_path), this);
         } catch (IOException e) {
             e.printStackTrace();

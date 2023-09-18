@@ -40,17 +40,19 @@ public class Init {
             // スペースID入力
             System.out.printf("スペースID[%s]: ", credential.getSpaceId());
             String space_id = scanner.nextLine();
+            if (space_id == "") {
+                space_id = credential.getSpaceId();
+            }
 
             // APIキー入力
             System.out.printf("APIキー[%s]: ", credential.getApiKey());
             String api_key = scanner.nextLine();
-
-            scanner.close();
-
-            if (space_id == "" || api_key == "") {
-                return;
+            if (api_key == "") {
+                api_key = credential.getApiKey();
             }
 
+            scanner.close();
+ 
             BacklogCredential newCredential = new BacklogCredential(space_id, api_key);
             newCredential.toJson(credential_file_path);
 
