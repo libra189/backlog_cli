@@ -8,16 +8,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BacklogCredential {
     @JsonProperty("api_key")
-    public String api_key;
-    
+    private String apiKey;
+
     @JsonProperty("space_id")
-    public String space_id;
+    private String spaceId;
 
     // public String organiztion_name;
 
-    BacklogCredential(String space_id, String api_key) {
-        this.space_id = space_id;
-        this.api_key = api_key;
+    BacklogCredential() {}
+
+    BacklogCredential(String spaceId, String apiKey) {
+        this.spaceId = spaceId;
+        this.apiKey = apiKey;
+    }
+
+    // getter
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public String getSpaceId() {
+        return spaceId;
+    }
+
+    // setter
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public void setSpaceId(String spaceId) {
+        this.spaceId = spaceId;
     }
 
     /**
