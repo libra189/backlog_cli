@@ -33,9 +33,9 @@ public class Backlog {
      * 
      * @return String
      */
-    public String fetchMyselfId() throws BacklogException {
+    public long fetchMyselfId() throws BacklogException {
         User myself = this.client.getMyself();
-        return myself.getUserId();
+        return myself.getId();
     }
 
     /**
@@ -43,7 +43,7 @@ public class Backlog {
      * 
      * @return long
      */
-    public long fetchProjectId() {
+    public long fetchProjectId() throws BacklogException {
         Project project = this.client.getProject(this.projectKey);
         return project.getId();
     }
@@ -51,15 +51,21 @@ public class Backlog {
     /**
      * 課題の一覧を取得
      * 
+     * @param isFetchAllTasks 全ユーザの課題を取得
      * @return List<BacklogIssue>
      */
-    public List<BacklogIssue> fetchIssues(Boolean hasMyself) throws BacklogException {
-        // プロジェクトID取得
-        long projectId = this.fetchProjectId();
+    public List<BacklogIssue> fetchIssues(Boolean isFetchAllTasks) throws BacklogException {
+        // パラメーターの設定
+        List<Long> projectIds = Arrays.asList(this.fetchProjectId());
+        GetIssuesParams params = new GetIssuesParams(projectIds);
+
+        if (!isFetchAllTasks) {
+            // 自身の課題のみ取得
+            long myselfUserId = this.fetchMyselfId();
+            params.assigneeIds(Arrays.asList(myselfUserId));
+        }
 
         // 課題一覧取得
-        List<Long> projectIds = Arrays.asList(projectId);
-        GetIssuesParams params = new GetIssuesParams(projectIds);
         ResponseList<Issue> issues = this.client.getIssues(params);
 
         // API仕様変更の差異を吸収するために値クラスに詰め替え

@@ -27,11 +27,11 @@ public class App {
         @Parameter(names = { "--client_secret" }, description = "your client secret")
         String client_secret;
     }
-    
-    static @Parameters(commandNames = "list", commandDescription = "show issue list")
-    class ListArgument {
-        @Parameter(names = { "-a", "--all" }, description = "app version")
-        Boolean isFetchAllTasks;
+
+    @Parameters(commandNames = "list", commandDescription = "show issue list")
+    static class ListArgument {
+        @Parameter(names = { "-a", "--all" }, description = "Issues for all users")
+        Boolean isFetchAllTasks = false;
     }
 
     @Parameters(commandNames = "view", commandDescription = "show issue detail")
@@ -80,8 +80,11 @@ public class App {
                 break;
             case "list":
                 System.out.println("subcommand: list");
+                // サブコマンドのオプション取得
+                Boolean isFetchAllTasks = listArgument.isFetchAllTasks;
+
                 IssueList issueListCmd = new IssueList();
-                issueListCmd.exec();
+                issueListCmd.exec(isFetchAllTasks);
                 break;
             case "view":
                 System.out.println("subcommand: view");

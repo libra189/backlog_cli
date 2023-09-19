@@ -10,7 +10,7 @@ public class IssueList {
     // Path to credential file
     private String credentialFilePath = "./credential.json";
 
-    public void exec() {
+    public void exec(Boolean isFetchAllTasks) {
         try {
             if (Files.notExists(Paths.get(credentialFilePath))) {
                 throw new NoSuchFileException(credentialFilePath);
@@ -19,8 +19,7 @@ public class IssueList {
             BacklogCredential credential = new BacklogCredential(credentialFilePath);
             Backlog client = new Backlog(credential);
 
-            Boolean hasMyself = true;
-            for (BacklogIssue i : client.fetchIssues(hasMyself)) {
+            for (BacklogIssue i : client.fetchIssues(isFetchAllTasks)) {
                 System.out.printf("#%d: %s\n", i.id, i.summary);
             }
         } catch (Exception e) {
