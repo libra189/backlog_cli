@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.libs.BacklogIssue;
+import com.example.libs.BacklogIssueSummary;
 import com.nulabinc.backlog4j.BacklogClient;
 import com.nulabinc.backlog4j.BacklogClientFactory;
 import com.nulabinc.backlog4j.BacklogException;
@@ -58,7 +59,7 @@ public class Backlog {
      * @param isFetchAllTasks 全ユーザの課題を取得
      * @return List<BacklogIssue>
      */
-    public List<BacklogIssue> fetchIssues(Boolean isFetchAllTasks) throws BacklogException {
+    public List<BacklogIssueSummary> fetchIssues(Boolean isFetchAllTasks) throws BacklogException {
         // パラメーターの設定
         List<Long> projectIds = Arrays.asList(this.fetchProjectId());
         GetIssuesParams params = new GetIssuesParams(projectIds);
@@ -73,12 +74,24 @@ public class Backlog {
         ResponseList<Issue> issues = this.client.getIssues(params);
 
         // API仕様変更の差異を吸収するために値クラスに詰め替え
-        List<BacklogIssue> retValues = new ArrayList<>();
+        List<BacklogIssueSummary> retValues = new ArrayList<>();
         for (Issue i : issues) {
-            BacklogIssue bi = new BacklogIssue(i.getId(), i.getSummary());
+            BacklogIssueSummary bi = new BacklogIssueSummary(i.getId(), i.getSummary());
             retValues.add(bi);
         }
 
         return retValues;
+    }
+
+    /**
+     * 課題情報の取得
+     * 
+     * @param issueId     課題のID
+     * @param hasComments 課題に対するコメントを取得
+     * @return BacklogIssue
+     * @throws BacklogException
+     */
+    public BacklogIssue fetchIssueInfo(long issueId, Boolean hasComments) throws BacklogException {
+        return null;
     }
 }

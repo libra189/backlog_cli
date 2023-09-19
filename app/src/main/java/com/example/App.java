@@ -37,7 +37,10 @@ public class App {
     @Parameters(commandNames = "view", commandDescription = "show issue detail")
     static class ViewArgument {
         @Parameter(names = { "--id" }, description = "issue id", required = true)
-        String issueId;
+        long issueId;
+
+        @Parameter(names = { "-c", "--comments" }, description = "get comments")
+        Boolean hasComments = false;
     }
 
     @Parameters(commandNames = "update", commandDescription = "update issue status")
@@ -88,6 +91,12 @@ public class App {
                 break;
             case "view":
                 System.out.println("subcommand: view");
+                // サブコマンドのオプション取得
+                long issueId = viewArgument.issueId;
+                Boolean hasComments = viewArgument.hasComments;
+
+                IssueView viewCmd = new IssueView();
+                viewCmd.exec(issueId, hasComments);
                 break;
             case "update":
                 System.out.println("subcommand: update");
