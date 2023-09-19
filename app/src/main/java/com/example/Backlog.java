@@ -92,6 +92,18 @@ public class Backlog {
      * @throws BacklogException
      */
     public BacklogIssue fetchIssueInfo(long issueId, Boolean hasComments) throws BacklogException {
-        return null;
+        Issue issue = this.client.getIssue(issueId);
+
+        BacklogIssue bi = new BacklogIssue(
+            issue.getId(),
+            issue.getSummary(),
+            issue.getDescription(),
+            issue.getStatus().getName(),
+            issue.getPriority().getName(),
+            issue.getAssignee().getName(),
+            issue.getStartDate(),
+            issue.getDueDate()
+        );
+        return bi;
     }
 }
