@@ -20,10 +20,10 @@ public class IssueList {
             Backlog client = new Backlog(credential);
 
             Boolean hasMyself = true;
-            for (BacklogIssue i: client.fetchIssues(hasMyself)) {
-                System.out.printf("#%d: %s", i.id, i.summary);
+            for (BacklogIssue i : client.fetchIssues(hasMyself)) {
+                System.out.printf("#%d: %s\n", i.id, i.summary);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
