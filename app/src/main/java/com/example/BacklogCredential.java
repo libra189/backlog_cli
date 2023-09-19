@@ -6,12 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
-import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class BacklogCredential {
     @JsonProperty("api_key")
@@ -23,7 +23,8 @@ public class BacklogCredential {
     @JsonProperty("project_key")
     private String projectKey;
 
-    BacklogCredential() {}
+    BacklogCredential() {
+    }
 
     BacklogCredential(String filePath) throws NoSuchFileException, IOException, StreamReadException, DatabindException {
         if (Files.notExists(Paths.get(filePath))) {
@@ -34,6 +35,7 @@ public class BacklogCredential {
         BacklogCredential credential = objectMapper.readValue(new File(filePath), BacklogCredential.class);
         this.apiKey = credential.getApiKey();
         this.spaceId = credential.getSpaceId();
+        this.projectKey = credential.getProjectKey();
     }
 
     BacklogCredential(String spaceId, String apiKey, String projectKey) {
@@ -66,6 +68,7 @@ public class BacklogCredential {
 
     /**
      * 認証情報をファイルにjson形式で書き込み
+     * 
      * @param filePath jsonファイルへのパス
      */
     public void toJson(String filePath) throws IOException, StreamWriteException, DatabindException {
@@ -76,6 +79,7 @@ public class BacklogCredential {
 
     /**
      * 認証情報をjsonファイルから読み込み
+     * 
      * @param filePath jsonファイルへのパス
      */
     public void loadJson(String filePath) throws IOException, StreamWriteException, DatabindException {
@@ -86,6 +90,6 @@ public class BacklogCredential {
         ObjectMapper objectMapper = new ObjectMapper();
         BacklogCredential credential = objectMapper.readValue(new File(filePath), BacklogCredential.class);
         this.apiKey = credential.getApiKey();
-        this.spaceId = credential.getSpaceId(); 
+        this.spaceId = credential.getSpaceId();
     }
 }

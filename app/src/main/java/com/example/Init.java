@@ -1,7 +1,7 @@
 package com.example;
 
-import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Init {
@@ -39,14 +39,14 @@ public class Init {
             }
 
             // プロジェクトキー入力
-            System.out.printf("プロジェクトキー[%s]: ", credential.getApiKey());
+            System.out.printf("プロジェクトキー[%s]: ", credential.getProjectKey());
             String projectKey = scanner.nextLine();
             if (projectKey == "") {
                 projectKey = credential.getProjectKey();
             }
 
             scanner.close();
- 
+
             BacklogCredential newCredential = new BacklogCredential(spaceId, apiKey, projectKey);
             newCredential.toJson(credentialFilePath);
         } catch (Exception e) {
