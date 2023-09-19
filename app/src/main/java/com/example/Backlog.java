@@ -17,6 +17,10 @@ import com.nulabinc.backlog4j.api.option.GetIssuesParams;
 import com.nulabinc.backlog4j.conf.BacklogConfigure;
 import com.nulabinc.backlog4j.conf.BacklogJpConfigure;
 
+/**
+ * Backlog APIライブラリを利用した通信処理
+ * APIの仕様変更時のコード修正範囲を限定するためにサブコマンド実行処理と分離
+ */
 public class Backlog {
     private BacklogConfigure configure;
     private BacklogClient client;
