@@ -6,6 +6,9 @@ package com.example;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.example.command.Init;
+import com.example.command.IssueList;
+import com.example.command.IssueView;
 
 public class App {
     static class Argument {

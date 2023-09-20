@@ -31,7 +31,7 @@ public class Backlog {
     public String projectKey;
     public String spaceId;
 
-    Backlog(BacklogCredential credential) throws MalformedURLException {
+    public Backlog(BacklogCredential credential) throws MalformedURLException {
         this.configure = new BacklogJpConfigure(credential.getSpaceId()).apiKey(credential.getApiKey());
         this.client = new BacklogClientFactory(this.configure).newClient();
         this.projectKey = credential.getProjectKey();

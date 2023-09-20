@@ -1,8 +1,10 @@
-package com.example;
+package com.example.command;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import com.example.BacklogCredential;
 
 public class Init {
     // Path to credential file

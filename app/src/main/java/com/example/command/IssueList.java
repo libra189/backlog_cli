@@ -1,9 +1,11 @@
-package com.example;
+package com.example.command;
 
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
+import com.example.Backlog;
+import com.example.BacklogCredential;
 import com.example.libs.BacklogIssueSummary;
 
 public class IssueList {

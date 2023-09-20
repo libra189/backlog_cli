@@ -26,7 +26,8 @@ public class BacklogCredential {
     BacklogCredential() {
     }
 
-    BacklogCredential(String filePath) throws NoSuchFileException, IOException, StreamReadException, DatabindException {
+    public BacklogCredential(String filePath)
+            throws NoSuchFileException, IOException, StreamReadException, DatabindException {
         if (Files.notExists(Paths.get(filePath))) {
             throw new NoSuchFileException(filePath);
         }
@@ -38,7 +39,7 @@ public class BacklogCredential {
         this.projectKey = credential.getProjectKey();
     }
 
-    BacklogCredential(String spaceId, String apiKey, String projectKey) {
+    public BacklogCredential(String spaceId, String apiKey, String projectKey) {
         this.spaceId = spaceId;
         this.apiKey = apiKey;
         this.projectKey = projectKey;
