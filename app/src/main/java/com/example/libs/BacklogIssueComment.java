@@ -4,15 +4,17 @@ import java.util.Date;
 
 public class BacklogIssueComment {
     public long id;
+    public long issueId;
     public String content;
     public String createdUser;
     public Date created;
     public Date updated;
 
-    private String urlPath = "api/v2/issues"; // FIXME: パス修正
+    private String urlFormat = "https://%s.backlog.jp/%s/%d#comment-%d";
 
-    public BacklogIssueComment(long id, String content, String createdUser, Date created, Date updated) {
+    public BacklogIssueComment(long id, long issueId, String content, String createdUser, Date created, Date updated) {
         this.id = id;
+        this.issueId = issueId;
         this.content = content;
         this.createdUser = createdUser;
         this.created = created;
@@ -24,15 +26,12 @@ public class BacklogIssueComment {
      * 
      * @return String
      */
-    public String getUrl() {
-        String spaceKey = "nulab-exam"; // FIXME: credential.jsonから取得
-
-        String url = String.format("https://%s.backlog.jp/%s/%s", spaceKey, this.urlPath, this.id);
-        return url;
+    public String getUrl(String spaceId) {
+        return String.format(urlFormat, spaceId, "view", this.issueId, this.id);
     }
 
-    public void print() {
-        System.out.printf("View the full review : %s\n\n", getUrl());
+    public void print(String spaceId) {
+        System.out.printf("View the full review : %s\n\n", getUrl(spaceId));
         System.out.printf("%s %tc\n", this.createdUser, this.updated);
         System.out.println(this.content);
     }

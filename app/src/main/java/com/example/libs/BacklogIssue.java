@@ -1,10 +1,6 @@
 package com.example.libs;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
 
 public class BacklogIssue {
     public long id; // id
@@ -18,7 +14,7 @@ public class BacklogIssue {
     public Date created;
     public Date updated;
 
-    private String urlPath = "api/v2/issues"; // FIXME: パス修正
+    private String urlFormat = "https://%s.backlog.jp/view/%s";
 
     public BacklogIssue(
             long id,
@@ -48,18 +44,15 @@ public class BacklogIssue {
      * 
      * @return String
      */
-    public String getUrl() {
-        String spaceKey = "nulab-exam"; // FIXME: credential.jsonから取得
-
-        String url = String.format("https://%s.backlog.jp/%s/%s", spaceKey, urlPath, this.id);
-        return url;
+    public String getUrl(String spaceId) {
+        return String.format(urlFormat, spaceId, this.id);
     }
 
     /**
      * 内容を表示
      */
-    public void print() {
-        System.out.printf("View this issue on Backlog: %s\n\n", getUrl());
+    public void print(String spaceId) {
+        System.out.printf("View this issue on Backlog: %s\n\n", getUrl(spaceId));
         System.out.println(this.summary);
         System.out.printf("%s %s %tc\n\n", this.status, this.assignee, this.updated);
         System.out.println(this.description);
@@ -70,17 +63,17 @@ public class BacklogIssue {
      * 
      * @param length
      */
-    public void print(int length) {
-        List<String> strs = new ArrayList<>();
-        for (int i = 0; i < StringUtils.length(this.description); i += length) {
-            strs.add(StringUtils.substring(this.description, i, i + length));
-        }
+    // public void print(int length) {
+    // List<String> strs = new ArrayList<>();
+    // for (int i = 0; i < StringUtils.length(this.description); i += length) {
+    // strs.add(StringUtils.substring(this.description, i, i + length));
+    // }
 
-        System.out.printf(this.summary);
-        System.out.printf("assigned for %s\n\n", this.assignee);
-        for (String s : strs) {
-            System.out.printf("  %s\n", s);
-        }
-        System.out.printf("View this issue on Backlog: %s\n", getUrl());
-    }
+    // System.out.printf(this.summary);
+    // System.out.printf("assigned for %s\n\n", this.assignee);
+    // for (String s : strs) {
+    // System.out.printf(" %s\n", s);
+    // }
+    // System.out.printf("View this issue on Backlog: %s\n", getUrl());
+    // }
 }

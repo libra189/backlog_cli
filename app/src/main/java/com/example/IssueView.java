@@ -23,14 +23,14 @@ public class IssueView {
 
             // 課題情報を取得
             BacklogIssue issue = client.fetchIssueInfo(issueId);
-            issue.print();
+            issue.print(client.spaceId);
 
             if (hasComments) {
                 // コメントを表示
                 System.out.println("[WIP] comment list");
                 System.out.println("");
                 for (BacklogIssueComment c : client.fetchIssueComments(issueId)) {
-                    c.print();
+                    c.print(client.spaceId);
                     System.out.println("");
                 }
             }

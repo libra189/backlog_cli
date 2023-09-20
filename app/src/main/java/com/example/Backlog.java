@@ -27,12 +27,15 @@ import com.nulabinc.backlog4j.conf.BacklogJpConfigure;
 public class Backlog {
     private BacklogConfigure configure;
     private BacklogClient client;
-    private String projectKey;
+
+    public String projectKey;
+    public String spaceId;
 
     Backlog(BacklogCredential credential) throws MalformedURLException {
         this.configure = new BacklogJpConfigure(credential.getSpaceId()).apiKey(credential.getApiKey());
         this.client = new BacklogClientFactory(this.configure).newClient();
         this.projectKey = credential.getProjectKey();
+        this.spaceId = credential.getSpaceId();
     }
 
     /**
@@ -126,6 +129,7 @@ public class Backlog {
 
             BacklogIssueComment bic = new BacklogIssueComment(
                     ic.getId(),
+                    issueId,
                     ic.getContent(),
                     ic.getCreatedUser().getName(),
                     ic.getCreated(),
