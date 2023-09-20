@@ -77,20 +77,18 @@ public class App {
         String command = commander.getParsedCommand();
         switch (command) {
             case "init":
-                System.out.println("subcommand: init");
+                System.out.println("[WIP] subcommand: init ToDo: OAuth認証");
                 Init initCmd = new Init();
                 initCmd.exec();
                 break;
             case "list":
-                System.out.println("subcommand: list");
                 // サブコマンドのオプション取得
                 Boolean isFetchAllTasks = listArgument.isFetchAllTasks;
-
                 IssueList issueListCmd = new IssueList();
                 issueListCmd.exec(isFetchAllTasks);
                 break;
             case "view":
-                System.out.println("subcommand: view");
+                System.out.println("[WIP] subcommand: view");
                 // サブコマンドのオプション取得
                 long issueId = viewArgument.issueId;
                 Boolean hasComments = viewArgument.hasComments;
@@ -99,7 +97,7 @@ public class App {
                 viewCmd.exec(issueId, hasComments);
                 break;
             case "update":
-                System.out.println("subcommand: update");
+                System.out.println("[ToDo] subcommand: update");
                 break;
             default:
                 commander.usage();

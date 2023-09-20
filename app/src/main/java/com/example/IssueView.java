@@ -5,6 +5,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
 import com.example.libs.BacklogIssue;
+import com.example.libs.BacklogIssueComment;
 
 public class IssueView {
     // Path to credential file
@@ -21,10 +22,18 @@ public class IssueView {
             Backlog client = new Backlog(credential);
 
             // 課題情報を取得
-            BacklogIssue issue = client.fetchIssueInfo(issueId, hasComments);
-            // for (BacklogIssueSummary i : client.fetchIssues(isFetchAllTasks)) {
-            // System.out.printf("#%d: %s\n", i.id, i.summary);
-            // }
+            BacklogIssue issue = client.fetchIssueInfo(issueId);
+            issue.print();
+
+            if (hasComments) {
+                // コメントを表示
+                System.out.println("[WIP] comment list");
+                System.out.println("");
+                for (BacklogIssueComment c : client.fetchIssueComments(issueId)) {
+                    c.print();
+                    System.out.println("");
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
