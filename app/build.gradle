@@ -39,6 +39,8 @@ dependencies {
     // Backlog api client
     implementation group: 'com.nulab-inc', name: 'backlog4j', version: '2.5.3'
 
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.13.0'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
