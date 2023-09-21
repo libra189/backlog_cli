@@ -69,3 +69,9 @@ jar {
 run {
     standardInput = System.in
 }
+
+test {
+    testLogging {
+        exceptionFormat "full"
+    }
+}
