@@ -22,6 +22,12 @@ dependencies {
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.5.0'
+
+    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.5.0'
+
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.1.1-jre'
 
@@ -58,6 +64,15 @@ application {
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+
+    testLogging {
+        // テスト時の標準出力と標準エラー出力を表示する
+        showStandardStreams true
+        // イベントを出力する (TestLogEvent)
+        events 'started', 'skipped', 'passed', 'failed'
+        // 例外発生時の出力設定 (TestExceptionFormat)
+        exceptionFormat 'full'
+    }
 }
 
 jar {
@@ -68,10 +83,4 @@ jar {
 
 run {
     standardInput = System.in
-}
-
-test {
-    testLogging {
-        exceptionFormat "full"
-    }
 }

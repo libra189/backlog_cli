@@ -80,7 +80,7 @@ public class App {
         String command = commander.getParsedCommand();
         switch (command) {
             case "init":
-                System.out.println("[WIP] subcommand: init ToDo: OAuth認証");
+                System.out.println("[ToDo] OAuth認証");
                 Init initCmd = new Init();
                 initCmd.exec();
                 break;
@@ -91,7 +91,6 @@ public class App {
                 issueListCmd.exec(isFetchAllTasks);
                 break;
             case "view":
-                System.out.println("[WIP] subcommand: view");
                 // サブコマンドのオプション取得
                 long issueId = viewArgument.issueId;
                 Boolean hasComments = viewArgument.hasComments;

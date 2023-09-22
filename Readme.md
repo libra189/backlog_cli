@@ -1,4 +1,8 @@
-# Java
+# Backlog CLI
+
+Backlogの課題一覧、詳細をコマンドから取得できるCLIアプリです。
+対象環境: `backlog.jp`のみ
+
 
 ## 実行方法
 
@@ -7,20 +11,39 @@
 $ ./scripts/dist.sh
 ```
 
-VSCode利用時は下記方法でビルド可能
-`Ctrl + shift + p`から`Run Task > dist`
-
 バイナリファイルの実行
 ```bash
 $ ./dist/bin/app
 ```
 
+## 機能一覧
+
+appに続けて下記項目名を入力するとその機能が利用可能
+
+### init
+
+本アプリを利用できるようにAPIキー、スペース、プロジェクトキーを登録
+
+### list
+
+Backlogから担当者が自分に割り当たっている課題一覧を取得
+
+`-a`オプションをつけると自分以外の課題も取得 
+
+### show
+
+課題の詳細情報を取得
+
+`--id`に続けて課題IDを入力する必要がある
+
+`-c`をつけると課題に対するコメントも取得する
+
 ## 開発環境
 
-| Name | Version | Description |
-| --- | --- | --- |
-| java | 17.0.8 | |
-| gradle | 8.3 | パッケージマネージャー |
+| Name   | Version | Description            |
+| ------ | ------- | ---------------------- |
+| java   | 17.0.8  |                        |
+| gradle | 8.3     | パッケージマネージャー |
 
 ### コンパイル
 
@@ -36,10 +59,6 @@ app/build/libs以下にjarファイルが生成される
 
 ターミナルで下記コマンドを実行
 ```bash
-$ java -jar /app/build/libs/app-all.jar
-```
-または
-```bash
 $ ./gradlew run
 ```
 
@@ -48,10 +67,11 @@ gradlewに引数をつける場合は
 $ ./gradlew run --args='--name foo'
 ```
 
-### ライブラリ
+### 主要ライブラリ
 
-- jackson-core: JSON操作
+- jacksone: JSON操作
 - JCommander: 引数解析
+- backlog4j: Backlog API client
 
 ### gradleプラグイン
 

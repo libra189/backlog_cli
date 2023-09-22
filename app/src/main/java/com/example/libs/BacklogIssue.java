@@ -16,6 +16,9 @@ public class BacklogIssue {
 
     private String urlFormat = "https://%s.backlog.jp/view/%s";
 
+    public BacklogIssue() {
+    }
+
     public BacklogIssue(
             long id,
             String summary,
