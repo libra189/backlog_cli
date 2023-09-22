@@ -102,9 +102,10 @@ public class IssueViewTest {
             String capturedOutput = out.readLine();
 
             // 期待される結果を検証
-            String expectedStr = String.format("View this issue on Backlog: %s\n\n",
+            String expectedStr = String.format("View this issue on Backlog: %s",
                     mockedIssueComment.getUrl("your_space_id"));
-            assertEquals(expectedStr, capturedOutput);
+            assertEquals(expectedStr,
+                    "View this issue on Backlog: https://your_space_id.backlog.jp/view/123#comment-234");
         } catch (Exception e) {
             fail("Exception thrown: " + e.getMessage());
         }

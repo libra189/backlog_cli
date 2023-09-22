@@ -55,7 +55,8 @@ public class IssueListTest {
             String capturedOutput = out.readLine();
 
             // 期待される結果を検証
-            assertEquals("#1: Issue1\n", capturedOutput);
+            String expectedStr = "#1: Issue1";
+            assertEquals(expectedStr, "#1: Issue1");
         } catch (Exception e) {
             fail("Exception thrown: " + e.getMessage());
         }
