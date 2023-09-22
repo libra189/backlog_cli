@@ -29,7 +29,6 @@ public class IssueView {
 
             if (hasComments) {
                 // コメントを表示
-                System.out.println("[WIP] comment list");
                 System.out.println("");
                 for (BacklogIssueComment c : client.fetchIssueComments(issueId)) {
                     c.print(client.spaceId);

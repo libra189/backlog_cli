@@ -1,5 +1,6 @@
 package com.example.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
@@ -15,7 +16,12 @@ import com.example.Backlog;
 import com.example.BacklogCredential;
 import com.example.libs.BacklogIssueSummary;
 
+import util.io.StandardOutputStream;
+
 public class IssueListTest {
+
+    private StandardOutputStream out = new StandardOutputStream();
+
     @Mock
     private BacklogCredential mockedCredential;
 
@@ -25,6 +31,7 @@ public class IssueListTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this); // モックの初期化
+        System.setOut(out);
     }
 
     @Test
@@ -42,10 +49,13 @@ public class IssueListTest {
             when(mockedBacklog.fetchIssues(true)).thenReturn(mockIssues);
 
             IssueList issueList = new IssueList();
-            issueList.exec(true);
+            issueList.exec(false);
+
+            // 標準出力の内容をキャプチャ
+            String capturedOutput = out.readLine();
 
             // 期待される結果を検証
-            // 例えば、System.out.printlnで出力されるか、またはリストが適切に処理されるかを確認するためのアサーションを追加
+            assertEquals("#1: Issue1\n", capturedOutput);
         } catch (Exception e) {
             fail("Exception thrown: " + e.getMessage());
         }
