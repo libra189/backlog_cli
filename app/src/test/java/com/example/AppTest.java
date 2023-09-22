@@ -3,7 +3,7 @@
  */
 package com.example;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,5 +12,8 @@ class AppTest {
     void appHasAGreeting() {
         // App classUnderTest = new App();
         // assertNotNull(classUnderTest.getGreeting("foo"), "app should have a greeting");
+        int a = 1;
+        int b = 2;
+        assertEquals(3, a + b);
     }
 }
